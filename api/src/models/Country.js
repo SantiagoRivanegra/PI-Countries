@@ -5,17 +5,14 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('country', {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(3),
       allowNull: false,
-      validate: {
-        isAlpha: true,
-        len: [3],
-      },
       primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     flag: {
       type: DataTypes.STRING,
@@ -26,29 +23,19 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     capital: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
     subregion: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
     area: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
+      type: DataTypes.INTEGER
     },
     population: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
+      type: DataTypes.INTEGER
+    },    
+  },
+  {
+    timestamps: false
   });
 };
-
-// ID (Código de 3 letras) *
-//   - Nombre *
-//   - Imagen de la bandera *
-//   - Continente *
-//   - Capital *
-//   - Subregión
-//   - Área
-//   - Población

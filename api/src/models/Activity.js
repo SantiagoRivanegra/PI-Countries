@@ -6,37 +6,28 @@ module.exports = (sequelize) => {
   sequelize.define('activity', {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true,
-      },
+      allowNull: false
     },
     difficulty: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM("1", "2", "3"),
       allowNull: false,
-      validate: {
-        isInt: true,
-        min: 1,
-        max: 5,
-      },
     },
     duration: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-        min: 1,
-      },
+      allowNull: false
     },
     season: {
       type: DataTypes.ENUM("Verano", "Otoño", "Invierno", "Primavera"),
       allowNull: false,
     },
+  },
+  {
+    timestamps: false
   });
 };
