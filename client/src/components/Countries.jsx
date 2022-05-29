@@ -1,31 +1,37 @@
+import React from "react"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {getCountry, filterCountryByContinent, orderCountryAlpha } from "../redux/actions"
 import {Link} from 'react-router-dom'
 import Card from './Card'
-import Paged from "./Paged"
+import Paged from './Paged'
+import SearchBar from './SearchBar'
 
 /*
-- [ ] Input de búsqueda para encontrar países por nombre
 - [ ] Paginado para ir buscando y mostrando los siguientes paises, 10 paises por pagina, mostrando los primeros 9 en la primer pagina
 */
 
+
 function Countries(){
   const dispatch = useDispatch()
-  const country = useSelector(state => state.countries)
+
+  useEffect(() => {
+    dispatch(getCountry())
+  },[dispatch])
 
   //Paginado
+  const country = useSelector(state => state.countries)
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [countriesPerPage, setCountriesPerPage] = useState(10)
   const indexOfLastCountry = currentPage * countriesPerPage
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage
   const currentCountry = country.slice(indexOfFirstCountry, indexOfLastCountry)
-
+  
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-  
+
   function handleSortAlpha(e){
     e.preventDefault()
     dispatch(orderCountryAlpha(e.target.value))
@@ -36,16 +42,12 @@ function Countries(){
   function handleFilterContinent(e){
     dispatch(filterCountryByContinent(e.target.value))
   }
-  
-  useEffect(() => {
-    dispatch(getCountry())
-  },[dispatch])
 
   return(
     <div>
       {/* Despues hacer un boton */}
       <Link to='/createActivity'>Crear Actividad</Link>
-    <div>
+      <div>
       <select onChange={e => handleFilterContinent(e)}>
         <option value='All'>Todos</option>
         <option value='Africa'>Africa</option>
@@ -61,7 +63,7 @@ function Countries(){
         <option value='pes'>Pesca</option>
       </select>
       <select onChange={e => handleSortAlpha(e)}>
-        {/* <option value='inicio'>Inicio</option> */}
+        {/* <option value='inicio'>Todos</option> */}
         <option value='a-z'>A-Z</option>
         <option value='z-a'>Z-A</option>
       </select>
@@ -69,14 +71,13 @@ function Countries(){
         <option value='mpob'>Mayor poblacion</option>
         <option value='lpob'>Menor poblacion</option>
       </select>
-    </div>
-    <div>
+    <SearchBar />  
     <Paged 
     countriesPerPage = {countriesPerPage}
     country = {country.length}
     paged = {paged}
-    />
-      
+    />      
+    </div>
       {
         currentCountry && currentCountry.map(c=>{
           return(
@@ -91,7 +92,6 @@ function Countries(){
           // )
         })
       }
-     </div>
     </div>
   )
 }

@@ -8,6 +8,14 @@ export function getCountry(){
   }
 }
 
+export function getCountryByName(name){
+  return (dispatch) => {
+    // return axios(`http://localhost:3001/countries?name=${name}`)
+    return axios("http://localhost:3001/countries?name=" + name)
+    .then((res) => dispatch({ type: 'GET_COUNTRY_BY_NAME', payload: res.data }))
+  }
+}
+
 export function orderCountryAlpha(payload){
   return{
     type: 'ORDER_COUNTRY_ALPHA',

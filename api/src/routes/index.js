@@ -93,7 +93,7 @@ router.get('/countries/:id', async (req, res, next) => {
 router.get('/activity', async (req, res, next)=>{
   try {
     let allActivities = await Activity.findAll({
-      include: Country
+       include: Country
     })
     return res.status(200).send(allActivities)
   } catch (error) {

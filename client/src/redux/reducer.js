@@ -19,6 +19,12 @@ function reducer(state=initialState, {type, payload}) {
       allCountries: payload,
     }
 
+    case 'GET_COUNTRY_BY_NAME':
+    return {
+      ...state,
+      countries: payload
+    }
+
     case 'ORDER_COUNTRY_ALPHA':
       let sortedArr = payload === 'a-z' ? state.countries.sort(function(a,b){
         if(a.name > b.name){
@@ -51,13 +57,13 @@ function reducer(state=initialState, {type, payload}) {
         countries: continentFilter
       }
 //filtros por tipo de actividad
-      case 'FILTER_ACTIVITY_BY_NAME':
-      const allActivities = state.allActivities
-      const nameFilter = payload === 'all' ? allCountries : allCountries.filter(c => c.continent === payload)
-      return {
-        ...state,
-        countries: continentFilter
-      }
+      // case 'FILTER_ACTIVITY_BY_NAME':
+      // const allActivities = state.allActivities
+      // const nameFilter = payload === 'all' ? allCountries : allCountries.filter(c => c.continent === payload)
+      // return {
+      //   ...state,
+      //   countries: continentFilter
+      // }
 
     case GET_COUNTRY_ID:
     return {
