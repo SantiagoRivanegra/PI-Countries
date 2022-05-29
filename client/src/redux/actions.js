@@ -8,6 +8,28 @@ export function getCountry(){
   }
 }
 
+export function orderCountryAlpha(payload){
+  return{
+    type: 'ORDER_COUNTRY_ALPHA',
+    payload
+  }
+}
+
+//Una accion para cada Select
+export function filterCountryByContinent(payload){
+  return{
+    type: 'FILTER_BY_CONTINENT',
+    payload
+  }
+}
+
+export function filterActivityByName(payload){
+  return{
+    type: 'FILTER_ACTIVITY_BY_NAME',
+    payload
+  }
+}
+
 export function getCountryDetail(){
   return async (dispatch) => {
     const res = await axios("http://localhost:3001/countries/:id")
