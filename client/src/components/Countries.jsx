@@ -1,7 +1,7 @@
 import React from "react"
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {getCountry, filterCountryByContinent, orderCountryAlpha } from "../redux/actions"
+import {getCountry, filterCountryByContinent, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
 import {Link} from 'react-router-dom'
 import Card from './Card'
 import Paged from './Paged'
@@ -13,14 +13,16 @@ import SearchBar from './SearchBar'
 
 
 function Countries(){
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
+  const country = useSelector(state => state.countries)
+  const activities = useSelector(state => state.activities)
 
   useEffect(() => {
     dispatch(getCountry())
+    dispatch(getActivity())
   },[dispatch])
 
   //Paginado
-  const country = useSelector(state => state.countries)
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [countriesPerPage, setCountriesPerPage] = useState(10)
@@ -38,6 +40,13 @@ function Countries(){
     setCurrentPage(1)
     setOrder(`Ordenado ${e.target.value}`)
   }
+
+  function handleSortPopulation(e){
+    e.preventDefault()
+    dispatch(orderCountryPopulation(e.target.value))
+    setCurrentPage(1)
+    setOrder(`Ordenado ${e.target.value}`)
+  }
   
   function handleFilterContinent(e){
     dispatch(filterCountryByContinent(e.target.value))
@@ -46,8 +55,9 @@ function Countries(){
   return(
     <div>
       {/* Despues hacer un boton */}
-      <Link to='/createActivity'>Crear Actividad</Link>
+      <Link to='/activity'>Actividades / Crear Actividad</Link>
       <div>
+      <label>Continente: </label>
       <select onChange={e => handleFilterContinent(e)}>
         <option value='All'>Todos</option>
         <option value='Africa'>Africa</option>
@@ -57,17 +67,25 @@ function Countries(){
         <option value='Europe'>Europa</option>
         <option value='Oceania'>Oceania</option>
       </select>
+      <label>Actividades: </label>
       <select>
-        <option value='act'>Actividades</option>
-        <option value='sky'>Sky</option>
-        <option value='pes'>Pesca</option>
+        {
+          activities && activities.map(a => {
+            return(
+            <option value={a.name}>{a.name}</option>
+            )
+          })
+        }
       </select>
+      <label>Ordenar alfabeticamente: </label>
       <select onChange={e => handleSortAlpha(e)}>
-        {/* <option value='inicio'>Todos</option> */}
+        <option value='defecto'>Por defecto</option>
         <option value='a-z'>A-Z</option>
         <option value='z-a'>Z-A</option>
       </select>
-      <select>
+      <label>Ordenar por poblacion: </label>
+      <select onChange={e => handleSortPopulation(e)}>
+        {/* <option value='pob'>Poblacion</option> */}
         <option value='mpob'>Mayor poblacion</option>
         <option value='lpob'>Menor poblacion</option>
       </select>
@@ -79,7 +97,7 @@ function Countries(){
     />      
     </div>
       {
-        currentCountry && currentCountry.map(c=>{
+        currentCountry ? currentCountry.map(c=>{
           return(
           <Card flag={c.flag} name={c.name} continent={c.continent}/>
           )
@@ -90,7 +108,7 @@ function Countries(){
           //     <img src={c.flag} alt={c.name}/>
           //   </div>
           // )
-        })
+        }) : <h1>Loading</h1>
       }
     </div>
   )

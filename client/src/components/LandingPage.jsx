@@ -1,8 +1,3 @@
-/*
-Imagen representativa del proyecto
-y boton de acceso a la home(Ruta principal)
-*/
-
 import React from 'react';
 import {Link} from 'react-router-dom'
 

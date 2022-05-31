@@ -15,14 +15,15 @@ export default function SearchBar(){
 
   function handleSubmit(e){
     e.preventDefault()
-    dispatch(getCountryByName(name))
     setName("")
+    dispatch(getCountryByName(name))
   }
 
   return(
     <div>
       <input
       type = 'text'
+      value = {name}
       placeholder = 'Buscar...'
       onChange={(e) => handleInputChange(e)}
       />

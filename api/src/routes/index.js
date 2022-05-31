@@ -93,9 +93,11 @@ router.get('/countries/:id', async (req, res, next) => {
 router.get('/activity', async (req, res, next)=>{
   try {
     let allActivities = await Activity.findAll({
-       include: Country
+       include: {model: Country,
+                attributes: ['name'],
+                through:{attributes: []}}
     })
-    return res.status(200).send(allActivities)
+    return res.status(200).json(allActivities)
   } catch (error) {
     next(error)
   }
@@ -113,10 +115,10 @@ router.post('/activity', async (req, res, next) => {
     })
 //Encontrar la coincidencia de countries enviada por body
     let activityCountry = await Country.findAll({
-      where: {name:countries}
+      where: { name : countries }
     })
 //Agregamos a la nueva actividad creada la coincidencia encontrada
-    await newActivity.addCountry(activityCountry)
+    newActivity.addCountry(activityCountry)
     res.status(200).send('La actividad se creo con exito')
   } catch (error) {
     next(error)

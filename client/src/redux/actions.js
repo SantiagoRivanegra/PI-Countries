@@ -16,9 +16,23 @@ export function getCountryByName(name){
   }
 }
 
+export function getCountryDetail(id){
+  return async (dispatch) => {
+    const res = await axios("http://localhost:3001/countries/" + id)
+    return dispatch({ type: GET_COUNTRY_ID, payload: res.data })
+  }
+}
+
 export function orderCountryAlpha(payload){
   return{
     type: 'ORDER_COUNTRY_ALPHA',
+    payload
+  }
+}
+
+export function orderCountryPopulation(payload){
+  return{
+    type: 'ORDER_COUNTRY_POPULATION',
     payload
   }
 }
@@ -31,20 +45,6 @@ export function filterCountryByContinent(payload){
   }
 }
 
-export function filterActivityByName(payload){
-  return{
-    type: 'FILTER_ACTIVITY_BY_NAME',
-    payload
-  }
-}
-
-export function getCountryDetail(){
-  return async (dispatch) => {
-    const res = await axios("http://localhost:3001/countries/:id")
-    return dispatch({ type: GET_COUNTRY_ID, payload: res.data })
-  }
-}
-
 export function getActivity(){
   return async (dispatch) => {
     const res = await axios("http://localhost:3001/activity")
@@ -53,15 +53,29 @@ export function getActivity(){
   }
 }
 
-export function getActivityByCountryId(){
+export function postActivity(payload){
   return async (dispatch) => {
-    const res = await axios("http://localhost:3001/activity/country")
-    return dispatch({ type: GET_ACTIVITY_BY_COUNTRY_ID, payload: res.data })
-    
+    const res = await axios.post("http://localhost:3001/activity", payload)
+    return res
   }
 }
+
+export function filterActivityByName(payload){
+  return{
+    type: 'FILTER_ACTIVITY_BY_NAME',
+    payload
+  }
+}
+
+// export function getActivityByCountryId(){
+//   return async (dispatch) => {
+//     const res = await axios("http://localhost:3001/activity/country")
+//     return dispatch({ type: GET_ACTIVITY_BY_COUNTRY_ID, payload: res.data })
+    
+//   }
+// }
 
 export const GET_COUNTRY = 'GET_COUNTRY'
 export const GET_COUNTRY_ID = 'GET_COUNTRY_ID'
 export const GET_ACTIVITY = 'GET_ACTIVITY'
-export const GET_ACTIVITY_BY_COUNTRY_ID = 'GET_ACTIVITY_BY_COUNTRY_ID'
+//export const GET_ACTIVITY_BY_COUNTRY_ID = 'GET_ACTIVITY_BY_COUNTRY_ID'

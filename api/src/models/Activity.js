@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     difficulty: {
-      type: DataTypes.ENUM("1", "2", "3"),
+      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
       allowNull: false,
     },
     duration: {

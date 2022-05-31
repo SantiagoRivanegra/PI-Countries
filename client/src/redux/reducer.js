@@ -1,5 +1,6 @@
 //Llevo al store
-import {GET_COUNTRY, GET_COUNTRY_ID, GET_ACTIVITY, GET_ACTIVITY_BY_COUNTRY_ID } from './actions'
+import {GET_COUNTRY, GET_COUNTRY_ID, GET_ACTIVITY} from './actions' 
+  //GET_ACTIVITY_BY_COUNTRY_ID 
 
 const initialState = {
   countries: [],
@@ -25,29 +26,105 @@ function reducer(state=initialState, {type, payload}) {
       countries: payload
     }
 
+    case GET_COUNTRY_ID:
+      return {
+        ...state,
+        countriesID: payload
+      }
+
+
+/* ORDENAMIENTO POR ALFABETO */
     case 'ORDER_COUNTRY_ALPHA':
-      let sortedArr = payload === 'a-z' ? state.countries.sort(function(a,b){
-        if(a.name > b.name){
+      let sortedAlpha;
+
+      if(payload === 'defecto'){
+        sortedAlpha = state.allCountries
+      } else if(payload === 'a-z' ){
+        sortedAlpha = state.countries.sort(function(a,b){
+            if(a.name > b.name){
+              return 1
+            }
+            if(a.name < b.name){
+              return -1
+            }
+            return 0
+          })
+      } else if(payload === 'z-a'){
+        sortedAlpha = state.countries.sort(function(a,b){
+            if(a.name > b.name){
+              return -1
+            }
+            if(a.name < b.name){
+              return 1
+            }
+            return 0
+      })
+    }
+    return {
+      ...state,
+      countries: sortedAlpha
+    }
+
+
+      // let sortedAlpha = payload === 'a-z' ? state.countries.sort(function(a,b){
+      //   if(a.name > b.name){
+      //     return 1
+      //   }
+      //   if(a.name < b.name){
+      //     return -1
+      //   }
+      //   return 0
+      // }) : 
+      // state.countries.sort(function(a,b){
+      //   if(a.name > b.name){
+      //     return -1
+      //   }
+      //   if(a.name < b.name){
+      //     return 1
+      //   }
+      //   return 0
+      // })
+      // return {
+      //   ...state,
+      //   allCountries: sortedAlpha
+      // }
+
+
+/* ORDENAMIENTO POR POBLACION */
+      case 'ORDER_COUNTRY_POPULATION':
+      let popuArr = payload === 'mpob' ? state.countries.sort(function(a,b){
+        if(a.population < b.population){
           return 1
         }
-        if(a.name < b.name){
+        if(a.population > b.population){
           return -1
         }
         return 0
       }) : 
       state.countries.sort(function(a,b){
-        if(a.name > b.name){
+        if(a.population < b.population){
           return -1
         }
-        if(a.name < b.name){
+        if(a.population > b.population){
           return 1
         }
         return 0
       })
       return {
         ...state,
-        countries: sortedArr
+        countries: popuArr
       }
+
+    case GET_ACTIVITY:
+      return {
+        ...state,
+        activities: payload
+      }
+
+    case 'POST_ACTIVITY':
+      return {
+        ...state
+      } 
 
     case 'FILTER_BY_CONTINENT':
       const allCountries = state.allCountries
@@ -65,23 +142,11 @@ function reducer(state=initialState, {type, payload}) {
       //   countries: continentFilter
       // }
 
-    case GET_COUNTRY_ID:
-    return {
-      ...state,
-      countriesID: payload
-    }
-
-    case GET_ACTIVITY:
-    return {
-      ...state,
-      activities: payload
-    }
-
-    case GET_ACTIVITY_BY_COUNTRY_ID:
-    return {
-      ...state,
-      activitiesByCountryID: payload
-    }
+    // case GET_ACTIVITY_BY_COUNTRY_ID:
+    // return {
+    //   ...state,
+    //   activitiesByCountryID: payload
+    // }
 
     default: return state;
   }
