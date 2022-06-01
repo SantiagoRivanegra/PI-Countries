@@ -1,4 +1,5 @@
 import React from "react"
+import './Countries.modules.css'
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {getCountry, filterCountryByContinent, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
