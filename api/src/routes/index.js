@@ -77,12 +77,14 @@ router.get('/countries/:id', async (req, res, next) => {
   try {
     const countryId = await Country.findByPk(id.toUpperCase(),{
       includes:{
-        model: Activity
+        model: Activity,
+        attributes: ['name', 'duration', 'difficulty', 'season'],
+        through:{attributes: []}
       },
     })
     countryId ? 
     res.status(200).send(countryId) :
-    res.status(404).send('Country not found')
+    res.status(404).send('Este pais no Existe')
   } catch (error) {
     next(error)
   }

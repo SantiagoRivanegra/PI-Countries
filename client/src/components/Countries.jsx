@@ -1,10 +1,10 @@
 import React from "react"
-import './Countries.modules.css'
+import s from './Countries.module.css'
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {getCountry, filterCountryByContinent, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
 import {Link} from 'react-router-dom'
-import Card from './Card'
+import CardCountry from './CardCountry'
 import Paged from './Paged'
 import SearchBar from './SearchBar'
 
@@ -54,14 +54,15 @@ function Countries(){
   }
 
   return(
-    <div>
+    <div className = {s.back}>
       {/* Despues hacer un boton */}
-      <Link to='/activity'>Actividades / Crear Actividad</Link>
+      <Link to='/activity'><button className={s.botActivity}>Actividades / Crear Actividad</button></Link>
       <div>
       <label>Continente: </label>
       <select onChange={e => handleFilterContinent(e)}>
         <option value='All'>Todos</option>
         <option value='Africa'>Africa</option>
+        <option value='Antarctica'>Antarctica</option>
         <option value='North America'>America del Norte</option>
         <option value='South America'>America del Sur</option>
         <option value='Asia'>Asia</option>
@@ -100,7 +101,8 @@ function Countries(){
       {
         currentCountry ? currentCountry.map(c=>{
           return(
-          <Card flag={c.flag} name={c.name} continent={c.continent}/>
+          <CardCountry flag={c.flag} name={c.name} continent={c.continent} id={c.id}/>
+          
           )
           //La Card reemplaza esto ↓
           // return(

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom'
-import {postActivity, getActivity} from '../redux/actions'
+import {postActivity, getActivity, getCountry} from '../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 function validate(input){
@@ -84,10 +84,11 @@ export default function ActivityCreate(){
 
   return(
     <div>
-      <Link to='/countries'><button>Volver</button></Link>
+      <Link to='/activity'><button>Volver</button></Link>
       <h2>Crea tu actividad</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
+{/*  */}
           <label>Nombre: </label>
           <input type='text'
           value= {input.name}
@@ -97,6 +98,7 @@ export default function ActivityCreate(){
           {error.name && (<p className="error">{error.name}</p>)}
         </div>
         <div>
+{/*  */}        
           <label>Duracion(Hs): </label>
           <input type='number'
           value= {input.duration}
@@ -105,6 +107,7 @@ export default function ActivityCreate(){
           />
           {error.duration && (<p className="error">{error.duration}</p>)}
         </div>
+{/*  */}        
         <label>Estacion: </label>
         <select>
                 <option >Seleccionar estacion</option>
@@ -115,6 +118,7 @@ export default function ActivityCreate(){
           </select>
           {error.season && (<p className="error">{error.season}</p>)}
         <div>
+{/*  */}          
           <label>Dificultad: </label>
           <label>
             <input type='checkbox'
@@ -148,11 +152,17 @@ export default function ActivityCreate(){
           />5</label>
           {error.difficulty && (<p className="error">{error.difficulty}</p>)}
         </div>
+{/*  */}        
         <label>Paises: </label>
           <select onChange={e => handleSelect(e)}>
-              {countries.map(c => (
-                <option value={c.name}>{c.name}</option>
-              ))}
+          {countries.sort((a, b) => a.name.localeCompare(b.name))
+                .map((pais) => {
+                  return (
+                    <option key={pais.id} value={pais.name}>
+                      {pais.name}
+                    </option>
+                  );
+                })}
           </select>
           {error.countries && (<p className="error">{error.countries}</p>)}
         <div>

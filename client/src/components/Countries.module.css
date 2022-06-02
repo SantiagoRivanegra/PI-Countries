@@ -1,0 +1,12 @@
+.back {
+  background-image: url('../images/Home.png');
+  background-size: 100% 20.5%;
+  margin: 0px;
+}
+
+.botActivity{
+  border-radius: 5px;
+  background-color: aquamarine;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

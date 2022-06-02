@@ -5,6 +5,7 @@ import Countries from "./components/Countries"
 import CountryDetail from "./components/CountryDetail"
 import Activities from "./components/Activities"
 import PageNotFound from './components/PageNotFound';
+import ActivityCreate from './components/ActivityCreate';
 
 function App() {
   return (
@@ -12,10 +13,12 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path = '/' component = {LandingPage}/>
-        <Route exact path = '/country/:id' component = {CountryDetail}/>
         <Route exact path = '/countries' component = {Countries}/>
+        {/* <Route exact path = '/countries?name=' component = {CountriesDetail}/> */}
+        <Route exact path = '/countries/:id' component = {CountryDetail}/>
       
         <Route exact path = '/activity' component = {Activities}/>
+        <Route exact path = '/activity/create' component = {ActivityCreate}/>
 
         <Route path = '*' component = {PageNotFound}/>
       </Switch>  

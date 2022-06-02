@@ -1,5 +1,5 @@
 import React from 'react';
-import './PageNotFound.modules.css';
+import './PageNotFound.module.css';
 import { Link } from 'react-router-dom'
 
 export default function PageNotFound(){

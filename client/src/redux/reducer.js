@@ -35,11 +35,9 @@ function reducer(state=initialState, {type, payload}) {
 
 /* ORDENAMIENTO POR ALFABETO */
     case 'ORDER_COUNTRY_ALPHA':
-      let sortedAlpha;
+      let sortedAlpha =  state.countries;
 
-      if(payload === 'defecto'){
-        sortedAlpha = state.allCountries
-      } else if(payload === 'a-z' ){
+      if(payload === 'a-z' ){
         sortedAlpha = state.countries.sort(function(a,b){
             if(a.name > b.name){
               return 1
@@ -58,6 +56,14 @@ function reducer(state=initialState, {type, payload}) {
               return 1
             }
             return 0
+      })
+    } else if(payload === 'defecto'){
+      sortedAlpha = state.allCountries.map(country => {
+        let res
+        state.countries.map(c => {
+          if(c.name === country.name) res = c
+        })
+        return res
       })
     }
     return {
@@ -128,7 +134,7 @@ function reducer(state=initialState, {type, payload}) {
 
     case 'FILTER_BY_CONTINENT':
       const allCountries = state.allCountries
-      const continentFilter = payload === 'all' ? allCountries : allCountries.filter(c => c.continent === payload)
+      const continentFilter = payload === 'All' ? allCountries : allCountries.filter(c => c.continent === payload)
       return {
         ...state,
         countries: continentFilter
