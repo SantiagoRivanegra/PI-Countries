@@ -13,6 +13,8 @@ const initialState = {
 
 function reducer(state=initialState, {type, payload}) {
   switch (type) {
+
+    /*OBTENGO TODOS LOS PAISES*/
     case GET_COUNTRY:
     return {
       ...state,
@@ -20,12 +22,15 @@ function reducer(state=initialState, {type, payload}) {
       allCountries: payload,
     }
 
+    /*OBTENGO UN PAIS POR NOMBRE*/
     case 'GET_COUNTRY_BY_NAME':
+      const filterName = payload ? payload : alert('Este pais ' + payload + ' no existe')
     return {
       ...state,
-      countries: payload
+      countries: filterName
     }
 
+    /*OBTENGO UN PAIS POR ID*/
     case GET_COUNTRY_ID:
       return {
         ...state,
@@ -33,7 +38,7 @@ function reducer(state=initialState, {type, payload}) {
       }
 
 
-/* ORDENAMIENTO POR ALFABETO */
+    /* ORDENAMIENTO POR ALFABETO */
     case 'ORDER_COUNTRY_ALPHA':
       let sortedAlpha =  state.countries;
 
@@ -96,7 +101,7 @@ function reducer(state=initialState, {type, payload}) {
       // }
 
 
-/* ORDENAMIENTO POR POBLACION */
+      /* ORDENAMIENTO POR POBLACION */
       case 'ORDER_COUNTRY_POPULATION':
       let popuArr = payload === 'mpob' ? state.countries.sort(function(a,b){
         if(a.population < b.population){
@@ -121,17 +126,20 @@ function reducer(state=initialState, {type, payload}) {
         countries: popuArr
       }
 
+    /*OBTENGO TODAS LAS ACTIVIDADES*/
     case GET_ACTIVITY:
       return {
         ...state,
         activities: payload
       }
 
+    /*POST ACTIVITY*/  
     case 'POST_ACTIVITY':
       return {
         ...state
       } 
 
+    /*FILTRO POR CONTINENTE*/  
     case 'FILTER_BY_CONTINENT':
       const allCountries = state.allCountries
       const continentFilter = payload === 'All' ? allCountries : allCountries.filter(c => c.continent === payload)
@@ -139,21 +147,23 @@ function reducer(state=initialState, {type, payload}) {
         ...state,
         countries: continentFilter
       }
-//filtros por tipo de actividad
-      // case 'FILTER_ACTIVITY_BY_NAME':
-      // const allActivities = state.allActivities
-      // const nameFilter = payload === 'all' ? allCountries : allCountries.filter(c => c.continent === payload)
-      // return {
-      //   ...state,
-      //   countries: continentFilter
-      // }
+
+      /*FILTRO POR TIPO DE ACTIVIDAD*/
+      case 'FILTER_COUNTRY_BY_ACTIVITY':
+        console.log(payload)
+      const allCountryActivity = state.allCountries
+      const activityFilter = payload === 'nada' ? allCountryActivity : allCountryActivity.filter(c => c.activities && c.activities.map(a => a.name).include(payload))
+      // const activityFilter = payload === 'nada' ? allCountryActivity.filter(m => m.activities) : allCountryActivity.filter(c => c.activities && c.activities.map(a => a.name === payload))
+       return {
+        ...state,
+        countries: activityFilter
+      }
 
     // case GET_ACTIVITY_BY_COUNTRY_ID:
     // return {
     //   ...state,
     //   activitiesByCountryID: payload
     // }
-
     default: return state;
   }
 }

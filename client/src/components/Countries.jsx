@@ -2,7 +2,7 @@ import React from "react"
 import s from './Countries.module.css'
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {getCountry, filterCountryByContinent, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
+import {getCountry, filterCountryByContinent, filterCountryByActivity, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
 import {Link} from 'react-router-dom'
 import CardCountry from './CardCountry'
 import Paged from './Paged'
@@ -53,11 +53,16 @@ function Countries(){
     dispatch(filterCountryByContinent(e.target.value))
   }
 
+  function handleFilterActivity(e){
+    dispatch(filterCountryByActivity(e.target.value))
+  }
+
   return(
     <div className = {s.back}>
-      {/* Despues hacer un boton */}
       <Link to='/activity'><button className={s.botActivity}>Actividades / Crear Actividad</button></Link>
       <div>
+
+      {/* Filtro por Continente */}  
       <label>Continente: </label>
       <select onChange={e => handleFilterContinent(e)}>
         <option value='All'>Todos</option>
@@ -69,35 +74,48 @@ function Countries(){
         <option value='Europe'>Europa</option>
         <option value='Oceania'>Oceania</option>
       </select>
+      
+      {/* Filtro por Actividades */}
       <label>Actividades: </label>
-      <select>
+      <select onChange={e => handleFilterActivity(e)}>
+        <option key={'activityFilter'} value='nada'>-------</option>
         {
           activities && activities.map(a => {
             return(
-            <option value={a.name}>{a.name}</option>
+            <option key={'activityFilter' + a.id} value={a.name}>{a.name}</option>
             )
           })
         }
       </select>
+
+      {/* Orden por Alfabeto */}
       <label>Ordenar alfabeticamente: </label>
       <select onChange={e => handleSortAlpha(e)}>
         <option value='defecto'>Por defecto</option>
         <option value='a-z'>A-Z</option>
         <option value='z-a'>Z-A</option>
       </select>
+
+      {/* Orden por Poblacion */}
       <label>Ordenar por poblacion: </label>
       <select onChange={e => handleSortPopulation(e)}>
         {/* <option value='pob'>Poblacion</option> */}
         <option value='mpob'>Mayor poblacion</option>
         <option value='lpob'>Menor poblacion</option>
       </select>
-    <SearchBar />  
+
+    {/* Barra de Busqueda */}  
+    <SearchBar /> 
+
+    {/* Paginado */} 
     <Paged 
     countriesPerPage = {countriesPerPage}
     country = {country.length}
     paged = {paged}
     />      
     </div>
+
+    {/* Muestro los Paises */}
       {
         currentCountry ? currentCountry.map(c=>{
           return(

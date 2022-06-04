@@ -23,7 +23,7 @@ function Activities(){
       {
         activity && activity.map(a=>{
           return(
-            <CardActivity name={a.name} duration={a.duration} difficulty={a.difficulty} season={a.season} countries={a.countries.map(c => c.name + ' ')}/>
+            <CardActivity name={a.name} duration={a.duration} difficulty={a.difficulty} season={a.season} countries={a.countries.map(c => c.name + ', ')}/>
 
         //La Card reemplaza esto ↓    
             // <div key={a.id}>

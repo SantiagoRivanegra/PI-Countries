@@ -23,15 +23,11 @@ function CountryDetail(){
   //Traigo el detalle del pais solicitado por parametro
   const idCountry = useSelector(state => state.countriesID)
   const activities = useSelector(state => state.activities)
+  const act = []
 
-  // activity && activity.map(a=>{
-  //   return(
-  //     <CardActivity name={a.name} duration={a.duration} difficulty={a.difficulty} season={a.season} countries={a.countries.map(c => c.name + ' ')}/>)})
-  
+
   if(!idCountry === 'Este pais no Existe'){}
-    if(idCountry.id === id.toUpperCase()){
-
-      
+    if(idCountry.id === id.toUpperCase()){    
 
   return(
     <div>
@@ -44,20 +40,15 @@ function CountryDetail(){
           <span>Capital: {idCountry.capital}</span>
           <h3>Poblacion: {idCountry.population} Habitantes</h3>
           <h3>Area: {idCountry.area} Km²</h3>
-
-          {/* <div>
-          {activities && activities.filter(act => {idCountry.name === act.countries.map(c => {c.name})
-          return (
-            <CardActivity name={act.name}/>
-          )})
-          }
-          </div> */}
         </div>
-        }       
+            }       
        <Link to = '/countries'>
          <button>Volver</button>
-       </Link>             
-    </div>
+       </Link>     
+      <div>
+        <CountryActivities activities = {idCountry.activities} />
+      </div>        
+    </div>    
   )} else {
     return(
       <div>
@@ -68,8 +59,3 @@ function CountryDetail(){
 }
 
 export default CountryDetail
-
-// llamo  a card activity en detail
-// comparo c.name con el mapeo de las acti con lo que me da a.countries.map
-// igualo el nombre de los paises y muestro todo
-// si no iguala no muestra el componente 

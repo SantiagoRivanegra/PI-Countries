@@ -45,6 +45,13 @@ export function filterCountryByContinent(payload){
   }
 }
 
+export function filterCountryByActivity(payload){
+  return{
+    type: 'FILTER_COUNTRY_BY_ACTIVITY',
+    payload
+  }
+}
+
 export function getActivity(){
   return async (dispatch) => {
     const res = await axios("http://localhost:3001/activity")
@@ -57,13 +64,6 @@ export function postActivity(payload){
   return async (dispatch) => {
     const res = await axios.post("http://localhost:3001/activity", payload)
     return res
-  }
-}
-
-export function filterActivityByName(payload){
-  return{
-    type: 'FILTER_ACTIVITY_BY_NAME',
-    payload
   }
 }
 

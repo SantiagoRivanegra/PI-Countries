@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom'
-import {postActivity, getActivity, getCountry} from '../redux/actions'
+import {postActivity, getCountry} from '../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 function validate(input){
@@ -60,12 +60,21 @@ export default function ActivityCreate(){
     })
   }
 
+  function handleSeason(e){
+    setInput({
+      ...input,
+      season: e.target.value
+    })
+  }
+
   function handleSubmit(e){
     e.preventDefault()
+
     setError(validate({
       ...input,
       [e.target.name] : e.target.value
     }))
+
     dispatch(postActivity(input))
     alert("Actividad creada con exito, felicidades")
     setInput({
@@ -79,7 +88,7 @@ export default function ActivityCreate(){
   }
 
   useEffect(() => {
-    dispatch(getActivity())
+    dispatch(getCountry())
   }, [])
 
   return(
@@ -109,57 +118,69 @@ export default function ActivityCreate(){
         </div>
 {/*  */}        
         <label>Estacion: </label>
-        <select>
+        <select onChange={e => handleSeason(e)}>
                 <option >Seleccionar estacion</option>
-                <option value='invierno'>Invierno</option>
-                <option value='otoño'>Otoño</option>
-                <option value='primavera'>Primavera</option>
-                <option value='verano'>Verano</option>
+                <option value='Invierno'>Invierno</option>
+                <option value='Otoño'>Otoño</option>
+                <option value='Primavera'>Primavera</option>
+                <option value='Verano'>Verano</option>
           </select>
           {error.season && (<p className="error">{error.season}</p>)}
         <div>
 {/*  */}          
           <label>Dificultad: </label>
-          <label>
-            <input type='checkbox'
-            value= {input.onedif}
-            name= 'onedif'
+          
+            <input type='radio'
+            id='onedif'
+            value= '1'
+            name= 'difficulty'
             onChange={e => handleCheck(e)}
-          />1</label>
-          <label>
-           <input type='checkbox'
-            value= {input.twodif}
-            name= 'twodif'
+            defaultChecked={true}
+          />
+          <label>1</label>
+
+           <input type='radio'
+            id='twodif'
+            value= '2'
+            name= 'difficulty'
             onChange={e => handleCheck(e)}
-          />2</label>
-          <label>
-           <input type='checkbox'
-            value= {input.threedif}
-            name= 'threedif'
+          />
+          <label>2</label>
+          
+           <input type='radio'
+            id='threedif'
+            value= '3'
+            name= 'difficulty'
             onChange={e => handleCheck(e)}
-          />3</label>
-          <label>
-            <input type='checkbox'
-            value= {input.fourdif}
-            name= 'fourdif'
+          />
+          <label>3</label>
+          
+            <input type='radio'
+            id='fourdif'
+            value= '4'
+            name= 'difficulty'
             onChange={e => handleCheck(e)}
-          />4</label>
-          <label>
-           <input type='checkbox'
-            value= {input.fivedif}
-           name= 'fivedif'
+          />
+          <label>4</label>
+          
+           <input type='radio'
+            id='fivedif'
+            value= '5'
+            name= 'difficulty'
            onChange={e => handleCheck(e)}
-          />5</label>
+          />
+          <label>5</label>
           {error.difficulty && (<p className="error">{error.difficulty}</p>)}
         </div>
 {/*  */}        
         <label>Paises: </label>
           <select onChange={e => handleSelect(e)}>
+          <option>Seleccionar</option>
           {countries.sort((a, b) => a.name.localeCompare(b.name))
-                .map((pais) => {
+                .map((country) => {
                   return (
-                    <option key={pais.id} value={pais.name}>
-                      {pais.name}
+                    <option key={country.id} value={country.name}>
+                      {country.name}
                     </option>
                   );
                 })}

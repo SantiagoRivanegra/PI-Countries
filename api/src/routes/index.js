@@ -74,13 +74,10 @@ router.get('/countries', async (req, res, next) => {
 
 router.get('/countries/:id', async (req, res, next) => {
   const id = req.params.id //Encontrarlo por Primary Key e incluir todas las actividades
+  const ID = id.toUpperCase()
   try {
-    const countryId = await Country.findByPk(id.toUpperCase(),{
-      includes:{
-        model: Activity,
-        attributes: ['name', 'duration', 'difficulty', 'season'],
-        through:{attributes: []}
-      },
+    const countryId = await Country.findOne({where: {id:ID},
+      include:{ model: Activity, },
     })
     countryId ? 
     res.status(200).send(countryId) :

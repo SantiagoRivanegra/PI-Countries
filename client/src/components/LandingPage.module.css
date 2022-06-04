@@ -1,4 +1,5 @@
-body {
+.back {
   background-image: url('../images/LandingPage.png');
   background-size: 100% 610%;
+  background-size: cover;
 }

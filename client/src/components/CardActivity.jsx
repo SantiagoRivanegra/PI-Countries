@@ -9,6 +9,8 @@ export default function CardActivity({name, duration, difficulty, season, countr
       <span> Nivel de Dificultad: {difficulty}.</span>
       <span> Temporada: {season}.</span>
       <span> Pais/es: {countries}.</span>
+      <br />
+      <hr />
     </div>
   )
 }
