@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCountryByName, getCountry } from '../redux/actions'
 
 export default function SearchBar(){
@@ -38,10 +38,11 @@ export default function SearchBar(){
       onChange={(e) => handleInputChange(e)}
       />
       <button type = 'submit' onClick = {(e) => handleSubmit(e)}>Buscar</button>
-
+     
       <Link to="/countries">
         <button onClick = {(e) => handleBack(e)}>Buscar todos los paises</button>
       </Link>
+
     </div>
   )
 }

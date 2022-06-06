@@ -1,7 +1,8 @@
-.back {
-  background-image: url('../images/Home.png');
-  background-size: 100% 20.5%;
-  margin: 0px;
+.container {
+  position: absolute;
+  background-image: url('../images/home12.png');
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .botActivity{

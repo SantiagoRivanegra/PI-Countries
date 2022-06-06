@@ -130,7 +130,8 @@ function reducer(state=initialState, {type, payload}) {
     case GET_ACTIVITY:
       return {
         ...state,
-        activities: payload
+        activities: payload,
+        allActivities: payload
       }
 
     /*POST ACTIVITY*/  
@@ -152,10 +153,9 @@ function reducer(state=initialState, {type, payload}) {
       case 'FILTER_COUNTRY_BY_ACTIVITY':
         console.log(payload)
       const allCountryActivity = state.allCountries
+
       const activityFilter = payload === 'nada' ? allCountryActivity : allCountryActivity.filter(c => c.activities && c.activities.map(a => a.name).includes(payload))
-      // const activityFilter = payload === 'nada' ? allCountryActivity : allCountryActivity.filter(c => c.activities && c.activities.map(a => a.name === payload))
-      // const activityFilter = payload === 'nada' ? allCountryActivity.filter(m => m.activities) : allCountryActivity.filter(c => c.activities && c.activities.map(a => a.name === payload))
-       return {
+      return {
         ...state,
         countries: activityFilter
       }

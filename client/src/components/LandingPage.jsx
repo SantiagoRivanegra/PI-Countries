@@ -4,11 +4,13 @@ import {Link} from 'react-router-dom'
 
 export default function LandingPage(){
   return(
-      <div  className = {s.back}>
+      <div  className = {s.container}>
         <div>
+        <div className = {s.pageTitlte}>
           <h1>Countries</h1>
+          </div>
             <Link to='/countries'>
-              <button>Ingresar</button>
+              <button className={s.butIngresar}>Ingresar</button>
             </Link>
         </div>
         <div className = {s.copyright}>

@@ -14,7 +14,8 @@ const router = Router();
 const getCountry = async () => {
   const countryDB = await Country.findAll({
     attribute: ['id', 'name', 'flag', 'continent', 'capital', 'subregion', 'area', 'population']
-  });
+  }
+  );
 
   if(!countryDB.length){
   try {
@@ -46,11 +47,7 @@ const getCountry = async () => {
 const getAll = async ()=>{
   await getCountry()
   return await Country.findAll({
-    includes: {
-      model: Activity,//Incluye las activities
-      attributes:['name', 'difficulty', 'duration', 'season'],
-      through:{attributes: []}
-    }
+     include: {model: Activity}
   });
 }
 

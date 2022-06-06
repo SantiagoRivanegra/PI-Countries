@@ -1,17 +1,47 @@
-body{
-  margin: 0px;
-  padding: 0px;
-}
-
-.back {
-  background-image: url('../images/LandingPage.png');
-  position: absolute;
+.container {
   height: 100vh;
   width: 100vw;
-  background-size: 100% 610%;
+  position: absolute;
+  background-image: url('../images/landing.png');
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pageTitlte{
+  height: 230px;
+}
+
+.pageTitlte h1{
+  margin: 10px;
+  color: rgb(1, 126, 84);  
+  font-size: 50px;
+}
+
+.butIngresar{
+  border-radius: 5px;
+  font-size: 30px;
+  color: blue;
+  width: 150px;
+  height: 50px;
+  position: center bottom;
+  background-color: rgba(127, 255, 212, 0.8);
+  animation: tiembla 2s infinite;
+}
+
+.butIngresar:hover{
+  cursor: pointer;
+
 }
 
 .copyright {
-  margin-top: 520px;
+  position: center;
+  color: rgb(187, 195, 212);
+  margin-top: 310px;
+}
+
+@keyframes tiembla{
+  0%  { -webkit-transform:rotateZ( 0deg); }
+  50% { -webkit-transform:rotateZ( 0deg) scale(.8); }
+  100%{ -webkit-transform:rotateZ( 0deg); }
 }

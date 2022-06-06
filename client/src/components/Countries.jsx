@@ -58,7 +58,7 @@ function Countries(){
   }
 
   return(
-    <div className = {s.back}>
+    <div className = {s.container}>
       <Link to='/activity'><button className={s.botActivity}>Actividades / Crear Actividad</button></Link>
       <div>
 
