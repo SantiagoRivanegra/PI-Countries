@@ -1,30 +1,55 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom'
-import {postActivity, getCountry} from '../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
+import {postActivity, getCountry} from '../redux/actions'
+// import { validate } from './Validate.js'
+import s from './ActivityCreate.module.css'
 
 function validate(input){
   let error = {};
+  //Name
   if (!input.name){
     error.name = 'Ingrese un nombre para su actividad'
-  } else if (!input.duration){
+  } 
+  if (!/^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/.test(input.name)){
+    error.name = 'Para el nombre ingrese solo letras, por favor'
+  } 
+  //Duration
+  if (!input.duration){
     error.duration = 'Ingrese la duracion(Hs) de su actividad'
-  } else if (!input.season){
-    error.season = 'Ingrese la estacion en la se realizara su actividad'
-  } else if (!input.difficulty){
+  }
+  if (input.duration < 1 || input.duration > 5){
+    error.duration = 'La duracion(Hs) de su actividad debe ser de entre 1 y 5 Horas'
+  }
+  if (!/^[\d]$/.test(input.duration)){
+    error.duration = 'La duracion(Hs) de su actividad debe ser con numero enteros'
+  }
+  //Season
+  if (!input.season){
+    error.season = 'Ingrese la estacion en la que se realizara su actividad'
+  } 
+  //Difficulty
+  if (!input.difficulty){
     error.difficulty = 'Ingrese la dificultad de su actividad'
-  } else if (!input.countries){
+  }
+  //Countries
+  if (!input.countries){
     error.countries = 'Ingrese un pais/es donde se desarrollara su actividad'
   }
   return error
 }
 
+
+
 export default function ActivityCreate(){
   const dispatch = useDispatch()
-  const history = useHistory()
-  const countries = useSelector(state => state.countries)
-  const [error, setError] = useState({})
 
+  //TRAIGO LOS PAISES DEL BACK
+  const countries = useSelector(state => state.countries)
+
+  const history = useHistory()
+  
+  //CREO UN ESTADO PARA GUARDAR LA INFORMACION DEL FORMULARIO  
   const [input, setInput] = useState({
     name: "",
     duration: "",
@@ -32,15 +57,25 @@ export default function ActivityCreate(){
     difficulty: "",
     countries: []
   })
+  
+  //CREO UN ESTADO PARA MANEJAR LOS ERRORES  
+    const [error, setError] = useState({})
 
+  //CARGO LOS PAISES CADA VEZ QUE ACCEDO AL COMPONENTE
+    useEffect(() => {
+      dispatch(getCountry())
+    }, [])
+
+  //Maneja los campos de  'NAME' y 'DURATION' 
   function handleChange(e){
+    e.preventDefault()
     setInput({
       ...input,
-      [e.target.name] : e.target.value
+      [e.target.name] : e.target.value.trim()
     })
     setError(validate({
       ...input,
-      [e.target.name] : e.target.value
+      [e.target.name] : e.target.value.trim()
     }))
   }
 
@@ -51,19 +86,43 @@ export default function ActivityCreate(){
         difficulty: e.target.value
       })
     }
+    setError(validate({
+      ...input,
+      difficulty: e.target.value
+    }))
   }
 
-  function handleSelect(e){
+  function handleSelectCountry(e){
     setInput({
       ...input,
-      countries: [...input.countries, e.target.value]
+      countries: input.countries.includes(e.target.value) 
+      ? input.countries 
+      : [...input.countries, e.target.value]
     })
+    setError(validate({
+      ...input,
+      countries: e.target.value
+    }))
   }
 
-  function handleSeason(e){
+  //Seleccion de la Temporada
+  function handleSelectSeason(e){
     setInput({
       ...input,
       season: e.target.value
+    })
+    setError(validate({
+      ...input,
+      season: e.target.value
+    }))
+  }
+
+
+  //Eliminar un pais seleccionado
+  function handleDelete(c){
+    setInput({
+      ...input,
+      countries: input.countries.filter(country => country !== c)
     })
   }
 
@@ -74,7 +133,6 @@ export default function ActivityCreate(){
       ...input,
       [e.target.name] : e.target.value
     }))
-
     dispatch(postActivity(input))
     alert("Actividad creada con exito, felicidades")
     setInput({
@@ -86,10 +144,6 @@ export default function ActivityCreate(){
     })
     history.push('/activity')
   }
-
-  useEffect(() => {
-    dispatch(getCountry())
-  }, [])
 
   return(
     <div>
@@ -118,8 +172,8 @@ export default function ActivityCreate(){
         </div>
 {/*  */}        
         <label>Estacion: </label>
-        <select onChange={e => handleSeason(e)}>
-                <option >Seleccionar estacion</option>
+        <select onChange={e => handleSelectSeason(e)}>
+                <option hidden selected>Seleccionar estacion</option>
                 <option value='Invierno'>Invierno</option>
                 <option value='Otoño'>Otoño</option>
                 <option value='Primavera'>Primavera</option>
@@ -135,7 +189,6 @@ export default function ActivityCreate(){
             value= '1'
             name= 'difficulty'
             onChange={e => handleCheck(e)}
-            defaultChecked={true}
           />
           <label>1</label>
 
@@ -174,8 +227,8 @@ export default function ActivityCreate(){
         </div>
 {/*  */}        
         <label>Paises: </label>
-          <select onChange={e => handleSelect(e)}>
-          <option>Seleccionar</option>
+          <select onChange={e => handleSelectCountry(e)} className={s.selectCountry}>
+          <option hidden selected>Seleccionar</option>
           {countries.sort((a, b) => a.name.localeCompare(b.name))
                 .map((country) => {
                   return (
@@ -188,10 +241,34 @@ export default function ActivityCreate(){
           {error.countries && (<p className="error">{error.countries}</p>)}
         <div>
           <ul><li>{input.countries.map(c => c + ",")}</li></ul>
-          <button type='submit'>Crear Actividad</button>
         </div>
 
+        {/* BOTON DE CREADO DE ACTIVIDAD*/}
+        {!input.name ||
+        !input.difficulty ||
+        !input.duration ||
+        !input.season ||
+        input.countries.length === 0 ||
+        Object.keys(error).length ? (
+          <button className={s.botCreate} disabled type="submit">
+            Crear Actividad
+          </button>
+        ) : (
+          <button className={s.botCreatet} type="submit">
+            Crear Actividad
+          </button>
+        )}
       </form>
+
+      {/* BOTON ELIMINAR UN PAIS SELECCIONADO */}
+      {
+        input.countries.map(c =>
+          <div className={s.divDeleteCountry}>
+            <p>{c}</p>
+            <button className={s.botDeleteCountry} onClick={() => handleDelete(c)}>x</button>
+          </div>
+        )
+      }
     </div>
   )
 }

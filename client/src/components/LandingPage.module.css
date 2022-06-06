@@ -1,5 +1,17 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
 .back {
   background-image: url('../images/LandingPage.png');
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
   background-size: 100% 610%;
   background-size: cover;
+}
+
+.copyright {
+  margin-top: 520px;
 }

@@ -9,4 +9,18 @@
   background-color: aquamarine;
   margin-top: 20px;
   margin-bottom: 20px;
+  
+  /* position: fixed; */
+}
+
+.botActivity:hover{
+  cursor: pointer;
+  background-color: rgb(33, 252, 179);
+}
+
+.containerCountry{
+  margin: 46px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

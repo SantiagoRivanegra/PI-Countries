@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 export default function CardCountry({flag, name, continent, id}){
   return(
     <div className={s.style}>
-      <img src={flag} alt={name}/>
+      <img className={s.img} src={flag} alt={name}/>
       <h4>{name}</h4>
       <h4>{continent}</h4>
       <Link to={`/countries/${id}`}>

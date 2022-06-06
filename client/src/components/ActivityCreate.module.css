@@ -1,0 +1,20 @@
+.botCreate{
+  border-radius: 4px;
+}
+
+.botCreate:hover{
+  background-color: rgb(199, 23, 23);
+  pointer-events: auto;
+}
+
+.selectCountry{
+  
+}
+
+.divDeleteCountry{
+
+}
+
+.botDeleteCountry{
+
+}

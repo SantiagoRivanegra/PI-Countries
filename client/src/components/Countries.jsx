@@ -116,11 +116,11 @@ function Countries(){
     </div>
 
     {/* Muestro los Paises */}
+    <div className={s.containerCountry}>
       {
         currentCountry ? currentCountry.map(c=>{
           return(
-          <CardCountry flag={c.flag} name={c.name} continent={c.continent} id={c.id}/>
-          
+          <CardCountry flag={c.flag} name={c.name} continent={c.continent} id={c.id}/>          
           )
           //La Card reemplaza esto ↓
           // return(
@@ -131,6 +131,7 @@ function Countries(){
           // )
         }) : <h1>Loading</h1>
       }
+    </div>  
     </div>
   )
 }

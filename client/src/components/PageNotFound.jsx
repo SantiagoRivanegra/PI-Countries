@@ -8,6 +8,9 @@ export default function PageNotFound(){
       <h1>Esta direccion no existe</h1>
       <h3>Vuelve a la ruta principal con este boton</h3>
       <Link to='/countries'><button>Ir a Ruta Principal</button></Link>
+      <div className = {s.copyright}>
+          <b>©2022 Santiago Marcos Rivanegra/SoyHenry</b>
+      </div>
     </div>
   )
 }

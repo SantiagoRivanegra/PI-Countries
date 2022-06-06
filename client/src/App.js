@@ -4,7 +4,7 @@ import LandingPage from "./components/LandingPage"
 import Countries from "./components/Countries"
 import CountryDetail from "./components/CountryDetail"
 import Activities from "./components/Activities"
-import PageNotFound from './components/PageNotFound';
+import PageNotFound from './components/PageNotFound'
 import ActivityCreate from './components/ActivityCreate';
 
 function App() {
