@@ -5,12 +5,12 @@ import {Link} from 'react-router-dom'
 //Card de cada Pais
 export default function CardCountry({flag, name, continent, id}){
   return(
-    <div className={s.style}>
+    <div className={s.container}>
       <img className={s.img} src={flag} alt={name}/>
-      <h4>{name}</h4>
-      <h4>{continent}</h4>
+      <h4 className={s.name}>{name}</h4>
+      <h4 className={s.continent}>{continent}</h4>
       <Link to={`/countries/${id}`}>
-        <button>Detalle Pais</button>
+        <button className={s.butDetail}>Detalle Pais</button>
       </Link>
     </div>
   )

@@ -8,14 +8,36 @@
   background-position: center;
 }
 
-.pageTitlte{
-  height: 230px;
+.containerTittle{
+  height: 260px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.pageTitlte h1{
+.letterC{
   margin: 10px;
-  color: rgb(1, 126, 84);  
-  font-size: 50px;
+  color: rgb(127, 255, 212);  
+  font-size: 80px;
+  font-family: Georgia;
+  margin-left: 1px;
+  margin-right: 1px;
+  text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+}
+.letterC:hover{
+  font-size: 70px;
+  text-shadow: black 0 -5px;
+}
+
+.letterS{
+  margin: 70px;
+  color: rgb(127, 255, 212);  
+  font-size: 15px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.letterS:hover{
+  font-size: 13px;
 }
 
 .butIngresar{

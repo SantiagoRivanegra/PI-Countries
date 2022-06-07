@@ -1,0 +1,13 @@
+/* .paged{
+  background-color: brown;
+  margin-left: 10px;
+} */
+
+.butNumber{
+  background-color: rgba(165, 42, 42, 0.493);
+  margin-left: 10px;
+}
+
+.butNumber:hover{
+cursor: pointer;
+}

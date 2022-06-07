@@ -1,27 +1,61 @@
-.style{
+.container{
   background-color: rgba(185, 184, 184, 0.473) ;
   border-radius: 10px;
   border: 5px solid black;
   background-size: 12px;
   padding: 10px;
-  width: 300px;
+  margin-bottom: 20px;
+  width: 170px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.card:hover {
-  background-color: rgba(165, 163, 163, 0.8);
+.name{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
+.continent{
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.butDetail{
+  color: rgb(49, 49, 250);
+  font-weight: 750;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+}
+
+.butDetail:hover{
+cursor: pointer;
+}
 
 .img{
-  width: 160px;
+  width: 150px;
   height: 80px;
   border: 1px solid black; 
 }
 
 .img:hover{
-  width: 180px;
-  height: 100px;
+  animation: translate-3d 1s 1;
+  backface-visibility: visible;
+}
+
+@keyframes translate-3d{
+  40%{
+    transform: perspective(300px) translateZ(120px) rotateY(170deg);
+  }
+  50%{
+    transform: perspective(300px) translateZ(120px) rotateY(190deg);
+  }
+  80%{
+    transform: perspective(300px) translateZ(0px) rotateY(360deg)
+  }
+  100%{
+    transform: perspective(300px) rotateY(360deg);    
+  }
 }

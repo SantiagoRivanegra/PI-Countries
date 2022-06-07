@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountryByName, getCountry } from '../redux/actions'
+import s from './SearchBar.module.css'
 
 export default function SearchBar(){
   const dispatch = useDispatch();
@@ -30,17 +31,17 @@ export default function SearchBar(){
 
 
   return(
-    <div>
-      <input
+    <div className={s.containerSearchBar}>
+      <input className={s.searchBar}
       type = 'text'
       value = {name}
       placeholder = 'Buscar...'
       onChange={(e) => handleInputChange(e)}
       />
-      <button type = 'submit' onClick = {(e) => handleSubmit(e)}>Buscar</button>
+      <button className={s.butSearch} type = 'submit' onClick = {(e) => handleSubmit(e)}>Buscar</button>
      
       <Link to="/countries">
-        <button onClick = {(e) => handleBack(e)}>Buscar todos los paises</button>
+        <button className={s.butSearchAll} onClick = {(e) => handleBack(e)}>Buscar todos los paises</button>
       </Link>
 
     </div>

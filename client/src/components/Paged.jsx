@@ -1,4 +1,5 @@
 import React from "react";
+import s from './Paged.module.css'
 
 export default function Paged({countriesPerPage, country, paged}){
   const pageNumber = []
@@ -8,11 +9,11 @@ export default function Paged({countriesPerPage, country, paged}){
   }
 
   return(
-    <nav>
-      <ul className='paged'>
+    <nav className={s.este}>
+      <ul className={s.paged}>
         {
           pageNumber && pageNumber.map(number => (
-              <button onClick={() => paged(number)}>{number}</button>
+              <button className={s.butNumber} onClick={() => paged(number)}>{number}</button>
           ))
         }
       </ul>

@@ -1,0 +1,18 @@
+.containerSearchBar{
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.searchBar{
+  width: 250px;
+  margin-right: 10px;
+}
+
+.butSearch{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.butSearchAll{
+  margin-left: 10px;
+}

@@ -1,27 +1,115 @@
 .container {
+  /* height: 100vh; */
+  width: 100vw;
   position: absolute;
   background-image: url('../images/home12.png');
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   background-attachment: fixed;
 }
 
-.botActivity{
+.containerElements{
+  background: linear-gradient(to top, transparent, rgba(185, 184, 184, 0.473))
+}
+
+.containerFilterOrder{
+  display: flex;
+  flex-direction: column;
+}
+
+.float1 div{
+  float: left;
+}
+
+.containerContinent{
+  width: 30%;
+  display:flex;
+  margin-left: 300px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.containerContinent select{
+margin-left: 20px;
+}
+
+.containerAlpha{
+  display:flex;
+  margin-left: 80px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.containerAlpha select{
+  margin-left: 20px;
+  width: 123px;
+  }
+
+.float2 div{
+  float: left;
+}
+
+.containerTypeActivity{
+  width: 30%;
+  display:flex;
+  margin-left: 300px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.containerTypeActivity select{
+  margin-left: 14px;
+  }
+
+
+.containerPopulation{
+  display:flex;
+  margin-left: 80px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.containerPopulation select{
+  margin-left: 42px;
+  }
+
+/* .containerButActivity{
+} */
+
+.butActivity{
+  font-weight: bold;
+  height: 40px;
+  width: 210px;
   border-radius: 5px;
   background-color: aquamarine;
   margin-top: 20px;
   margin-bottom: 20px;
-  
-  /* position: fixed; */
 }
 
-.botActivity:hover{
+.butActivity:hover{
   cursor: pointer;
   background-color: rgb(33, 252, 179);
 }
 
+.containerFilterOrder{
+  margin-left: 0px;
+}
+
 .containerCountry{
-  margin: 46px;
-  display: flex;
-  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-right: 50px;
+  margin-left: 0px;
+  display: grid;
+  grid-template-columns: 125px 125px 125px 125px 125px;
   justify-content: space-around;
+}
+
+.copyright {
+  position: center;
+  color: rgb(187, 195, 212);
+  margin-top: 100px;
 }

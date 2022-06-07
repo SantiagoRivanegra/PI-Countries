@@ -59,10 +59,15 @@ function Countries(){
 
   return(
     <div className = {s.container}>
-      <Link to='/activity'><button className={s.botActivity}>Actividades / Crear Actividad</button></Link>
-      <div>
-
-      {/* Filtro por Continente */}  
+      <div className = {s.containerElements}>
+        <div className = {s.containerButActivity}>
+          <Link to='/activity'><button className={s.butActivity}>Actividades / Crear Actividad</button></Link>
+        </div>
+      
+      {/* Filtro por Continente */}
+    <div className = {s.containerFilterOrder}>
+      <div className={s.float1}>
+      <div className = {s.containerContinent}>  
       <label>Continente: </label>
       <select onChange={e => handleFilterContinent(e)}>
         <option value='All'>Todos</option>
@@ -74,11 +79,25 @@ function Countries(){
         <option value='Europe'>Europa</option>
         <option value='Oceania'>Oceania</option>
       </select>
+      </div>
+
+      {/* Orden por Alfabeto */}
+      <div className={s.containerAlpha} >
+      <label>Ordenar alfabeticamente: </label>
+      <select onChange={e => handleSortAlpha(e)}>
+        <option value='defecto'>Por defecto</option>
+        <option value='a-z'>A-Z</option>
+        <option value='z-a'>Z-A</option>
+      </select>
+      </div>
+      </div>
       
       {/* Filtro por Actividades */}
+      <div className={s.float2}>
+      <div className={s.containerTypeActivity}>
       <label>Actividades: </label>
       <select onChange={e => handleFilterActivity(e)}>
-        <option key={'activityFilter'} value='nada'>-------</option>
+        <option key={'activityFilter'} value='nada'>------------------------</option>
         {
           activities && activities.map(a => {
             return(
@@ -87,22 +106,19 @@ function Countries(){
           })
         }
       </select>
-
-      {/* Orden por Alfabeto */}
-      <label>Ordenar alfabeticamente: </label>
-      <select onChange={e => handleSortAlpha(e)}>
-        <option value='defecto'>Por defecto</option>
-        <option value='a-z'>A-Z</option>
-        <option value='z-a'>Z-A</option>
-      </select>
+      </div>
 
       {/* Orden por Poblacion */}
+      <div className={s.containerPopulation}>
       <label>Ordenar por poblacion: </label>
       <select onChange={e => handleSortPopulation(e)}>
         {/* <option value='pob'>Poblacion</option> */}
         <option value='mpob'>Mayor poblacion</option>
         <option value='lpob'>Menor poblacion</option>
       </select>
+      </div>
+      </div>
+    </div>
 
     {/* Barra de Busqueda */}  
     <SearchBar /> 
@@ -131,7 +147,10 @@ function Countries(){
           // )
         }) : <h1>Loading</h1>
       }
-    </div>  
+    </div>
+      <div className = {s.copyright}>
+          <b>©2022 Santiago Marcos Rivanegra/SoyHenry</b>
+      </div>  
     </div>
   )
 }
