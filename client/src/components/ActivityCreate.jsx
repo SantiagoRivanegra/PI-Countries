@@ -146,33 +146,37 @@ export default function ActivityCreate(){
   }
 
   return(
-    <div>
-      <Link to='/activity'><button>Volver</button></Link>
+    <div className={s.container}>
       <h2>Crea tu actividad</h2>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
+
+      <div className={s.containerForm}>
+      <form className={s.form} onSubmit={(e) => handleSubmit(e)}>
 {/*  */}
+        <div>
           <label>Nombre: </label>
-          <input type='text'
+          <input className={s.formInputName}
+          type='text'
           value= {input.name}
           name= 'name'
           onChange={e => handleChange(e)}
           />
           {error.name && (<p className="error">{error.name}</p>)}
         </div>
-        <div>
 {/*  */}        
-          <label>Duracion(Hs): </label>
-          <input type='number'
+        <div>
+          <label className={s.labelDuration}>Duracion(Hs): </label>
+          <input className={s.formInputDuration}
+          type='number'
           value= {input.duration}
           name= 'duration'
           onChange={e => handleChange(e)}
           />
           {error.duration && (<p className="error">{error.duration}</p>)}
         </div>
-{/*  */}        
-        <label>Estacion: </label>
-        <select onChange={e => handleSelectSeason(e)}>
+{/*  */}
+        <div className={s.divSeason}>        
+          <label>Estacion: </label>
+          <select className={s.selectSeason} onChange={e => handleSelectSeason(e)}>
                 <option hidden selected>Seleccionar estacion</option>
                 <option value='Invierno'>Invierno</option>
                 <option value='Otoño'>Otoño</option>
@@ -180,8 +184,9 @@ export default function ActivityCreate(){
                 <option value='Verano'>Verano</option>
           </select>
           {error.season && (<p className="error">{error.season}</p>)}
-        <div>
+        </div>
 {/*  */}          
+        <div className={s.divDifficulty}>
           <label>Dificultad: </label>
           
             <input type='radio'
@@ -240,35 +245,51 @@ export default function ActivityCreate(){
           </select>
           {error.countries && (<p className="error">{error.countries}</p>)}
         <div>
-          <ul><li>{input.countries.map(c => c + ",")}</li></ul>
+        {
+        input.countries.map(c =>
+          <div className={s.divCountryList}>
+            <p>{c + ' '}
+            <button className={s.butDeleteCountry} onClick={() => handleDelete(c)}>x</button>
+            </p>
+          </div>
+        )
+      }
+          {/* <ul><li>{input.countries.map(c => c + ",")}<button>x</button></li></ul> */}
         </div>
+      
 
         {/* BOTON DE CREADO DE ACTIVIDAD*/}
+      <div className={s.buttonContainer}>
         {!input.name ||
         !input.difficulty ||
         !input.duration ||
         !input.season ||
         input.countries.length === 0 ||
         Object.keys(error).length ? (
-          <button className={s.botCreate} disabled type="submit">
+          <button className={s.butCreate} disabled type="submit">
             Crear Actividad
           </button>
         ) : (
-          <button className={s.botCreatet} type="submit">
+          <button className={s.butCreate} type="submit">
             Crear Actividad
           </button>
         )}
+        </div>
       </form>
+      </div>
+      
 
       {/* BOTON ELIMINAR UN PAIS SELECCIONADO */}
-      {
+      {/* {
         input.countries.map(c =>
           <div className={s.divDeleteCountry}>
-            <p>{c}</p>
+            <b>{c}</b>
             <button className={s.botDeleteCountry} onClick={() => handleDelete(c)}>x</button>
           </div>
         )
-      }
+      } */}
+
+      <Link to='/activity'><button>Volver</button></Link>
     </div>
   )
 }

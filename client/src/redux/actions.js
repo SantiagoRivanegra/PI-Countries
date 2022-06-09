@@ -9,10 +9,15 @@ export function getCountry(){
 }
 
 export function getCountryByName(name){
-  return (dispatch) => {
-    // return axios(`http://localhost:3001/countries?name=${name}`)
-    return axios("http://localhost:3001/countries?name=" + name)
-    .then((res) => dispatch({ type: 'GET_COUNTRY_BY_NAME', payload: res.data }))
+  return async (dispatch) => {
+    try {
+          // return axios(`http://localhost:3001/countries?name=${name}`)
+          const res = await axios("http://localhost:3001/countries?name=" + name)
+          return dispatch({ type: 'GET_COUNTRY_BY_NAME', payload: res.data })
+    } catch (error) {
+      alert("El pais ingresado:  '" + name + "'  no fue encontrado")
+    }
+
   }
 }
 
@@ -65,6 +70,13 @@ export function postActivity(payload){
     const res = await axios.post("http://localhost:3001/activity", payload)
     return res
   }
+}
+
+export function filterHabitantes(payload){
+  return {
+    type: 'FILTER_HABITANTES',
+    payload
+  }  
 }
 
 // export function getActivityByCountryId(){

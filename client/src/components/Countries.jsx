@@ -1,17 +1,13 @@
 import React from "react"
 import s from './Countries.module.css'
+import loading from '../images/loading.gif'
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {getCountry, filterCountryByContinent, filterCountryByActivity, orderCountryAlpha, orderCountryPopulation, getActivity } from "../redux/actions"
+import {getCountry, filterCountryByContinent, filterCountryByActivity, orderCountryAlpha, orderCountryPopulation, getActivity, filterHabitantes } from "../redux/actions"
 import {Link} from 'react-router-dom'
 import CardCountry from './CardCountry'
 import Paged from './Paged'
 import SearchBar from './SearchBar'
-
-/*
-- [ ] Paginado para ir buscando y mostrando los siguientes paises, 10 paises por pagina, mostrando los primeros 9 en la primer pagina
-*/
-
 
 function Countries(){
   const dispatch = useDispatch()  
@@ -27,9 +23,13 @@ function Countries(){
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [countriesPerPage, setCountriesPerPage] = useState(10)
-  const indexOfLastCountry = currentPage * countriesPerPage
-  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage
+  const indexOfLastCountry = currentPage === 1 ? 9 : currentPage * countriesPerPage - 1
+  const indexOfFirstCountry = currentPage === 1 ? 0 : indexOfLastCountry - countriesPerPage
   const currentCountry = country.slice(indexOfFirstCountry, indexOfLastCountry)
+  /*
+  Paginado con 10 por pagina ↓
+  const indexOfLastCountry = currentPage * countriesPerPage
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage*/
   
   const paged = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -55,6 +55,10 @@ function Countries(){
 
   function handleFilterActivity(e){
     dispatch(filterCountryByActivity(e.target.value))
+  }
+
+  function handleFilterHabitantes(){
+    dispatch(filterHabitantes())
   }
 
   return(
@@ -85,7 +89,8 @@ function Countries(){
       <div className={s.containerAlpha} >
       <label>Ordenar alfabeticamente: </label>
       <select onChange={e => handleSortAlpha(e)}>
-        <option value='defecto'>Por defecto</option>
+        <option>Ninguno</option>
+        <option value='random'>Aleatorio</option>
         <option value='a-z'>A-Z</option>
         <option value='z-a'>Z-A</option>
       </select>
@@ -120,6 +125,12 @@ function Countries(){
       </div>
     </div>
 
+    <div>  
+      <label>Filtro Habitantes: </label>
+      <button onClick={e => handleFilterHabitantes(e)}>FiltroNuevo
+      </button>
+      </div>
+
     {/* Barra de Busqueda */}  
     <SearchBar /> 
 
@@ -145,7 +156,12 @@ function Countries(){
           //     <img src={c.flag} alt={c.name}/>
           //   </div>
           // )
-        }) : <h1>Loading</h1>
+        }) : (
+          <div>
+            <img src={loading} alt="Not Found"/>,
+            <h3>No se encontraron paises</h3>
+          </div>
+        )
       }
     </div>
       <div className = {s.copyright}>

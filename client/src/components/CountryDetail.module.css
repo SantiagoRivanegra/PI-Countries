@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background-image: url('../images/home12.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.containerElements{
+  background: linear-gradient(to top, transparent, rgba(185, 184, 184, 0.473));
+  width: 400px;
+  margin-left:50px;
+  height: 550px;
+}
+
+.activities{
+  color: rgb(187, 195, 212)
+}
+
+.copyright {
+  position: center;
+  color: rgb(187, 195, 212);
+  margin-top: 40px;
+}

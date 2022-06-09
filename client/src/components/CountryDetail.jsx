@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getCountryDetail, getActivity } from "../redux/actions"
 import PageNotFound from "./PageNotFound"
 import CountryActivities from "./CountryActivities"
+import s from './CountryDetail.module.css'
+import loading from '../images/loading.gif'
 import CardActivity from "./CardActivity"
 
 
@@ -30,9 +32,9 @@ function CountryDetail(){
     if(idCountry.id === id.toUpperCase()){    
 
   return(
-    <div>
+    <div className={s.container}>
       {
-        <div>
+        <div className={s.containerElements}>
           <h1>Nombre: {idCountry.name}</h1>
           <img src={idCountry.flag} alt={idCountry.name} />
           <h3>Continente: {idCountry.continent}</h3>
@@ -42,17 +44,21 @@ function CountryDetail(){
           <h3>Area: {idCountry.area} Km²</h3>
         </div>
             }       
+      <div className={s.activities}>
+        <CountryActivities activities = {idCountry.activities} />
+      </div> 
        <Link to = '/countries'>
          <button>Volver</button>
        </Link>     
-      <div>
-        <CountryActivities activities = {idCountry.activities} />
-      </div>        
+      <div className = {s.copyright}>
+          <b>©2022 Santiago Marcos Rivanegra/SoyHenry</b>
+      </div>         
     </div>    
   )} else {
     return(
       <div>
-         <PageNotFound />
+        <img src={loading} alt="Not Found"/>
+         {/* <PageNotFound /> */}
       </div>
     )
   }

@@ -41,6 +41,7 @@ function reducer(state=initialState, {type, payload}) {
     /* ORDENAMIENTO POR ALFABETO */
     case 'ORDER_COUNTRY_ALPHA':
       let sortedAlpha =  state.countries;
+      let random = state.allCountries;
 
       if(payload === 'a-z' ){
         sortedAlpha = state.countries.sort(function(a,b){
@@ -62,14 +63,8 @@ function reducer(state=initialState, {type, payload}) {
             }
             return 0
       })
-    } else if(payload === 'defecto'){
-      sortedAlpha = state.allCountries.map(country => {
-        let res
-        state.countries.map(c => {
-          if(c.name === country.name) res = c
-        })
-        return res
-      })
+    } else if(payload === 'random'){
+      sortedAlpha = random.sort(()=> Math.random() - 0.5)
     }
     return {
       ...state,
@@ -159,6 +154,14 @@ function reducer(state=initialState, {type, payload}) {
         ...state,
         countries: activityFilter
       }
+
+      case 'FILTER_HABITANTES':
+        const allCountry = state.allCountries.filter(c => c.population > 100000000)
+        
+        return {
+          ...state,
+          countries: allCountry
+        }
 
     // case GET_ACTIVITY_BY_COUNTRY_ID:
     // return {

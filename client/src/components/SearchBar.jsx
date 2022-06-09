@@ -41,7 +41,7 @@ export default function SearchBar(){
       <button className={s.butSearch} type = 'submit' onClick = {(e) => handleSubmit(e)}>Buscar</button>
      
       <Link to="/countries">
-        <button className={s.butSearchAll} onClick = {(e) => handleBack(e)}>Buscar todos los paises</button>
+        <button className={s.butSearchAll} onClick = {(e) => handleBack(e)}>Restablecer todos los paises</button>
       </Link>
 
     </div>
