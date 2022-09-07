@@ -5,6 +5,8 @@ import {getActivity} from "../redux/actions"
 import { Link } from 'react-router-dom'
 import CardActivity from "./CardActivity"
 
+import s from './CardActivity.module.css'
+
 //Muestro todas las actividades de la Base de Datos
 function Activities(){
   const dispatch = useDispatch()
@@ -15,11 +17,12 @@ function Activities(){
   },[dispatch])
 
   return(
-    <div>
-      <div>
+    <div  className={s.container}>
+      <div className={s.buttons}>
       <Link to='/countries'><button>Volver</button></Link>
       <Link to='/activity/create'><button>Crear Actividad</button></Link>
       </div>
+
       {
         activity && activity.map(a=>{
           return(
@@ -38,6 +41,7 @@ function Activities(){
           )
         })
       }
+
     </div>
   )
 }
