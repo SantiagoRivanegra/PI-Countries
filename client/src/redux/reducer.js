@@ -15,7 +15,7 @@ function reducer(state=initialState, {type, payload}) {
   switch (type) {
 
     /*OBTENGO TODOS LOS PAISES*/
-    case GET_COUNTRY:
+    case 'GET_COUNTRY':
     return {
       ...state,
       countries: payload,

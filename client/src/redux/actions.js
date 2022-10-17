@@ -4,7 +4,7 @@ import axios from "axios"
 export function getCountry(){
   return async (dispatch) => {
     const res = await axios("/countries")
-    return dispatch({type: GET_COUNTRY, payload: res.data})
+    return dispatch({type: 'GET_COUNTRY', payload: res.data})
   }
 }
 
@@ -87,7 +87,7 @@ export function filterHabitantes(payload){
 //   }
 // }
 
-export const GET_COUNTRY = 'GET_COUNTRY'
+//export const GET_COUNTRY = 'GET_COUNTRY'
 export const GET_COUNTRY_ID = 'GET_COUNTRY_ID'
 export const GET_ACTIVITY = 'GET_ACTIVITY'
 //export const GET_ACTIVITY_BY_COUNTRY_ID = 'GET_ACTIVITY_BY_COUNTRY_ID'

@@ -60,11 +60,13 @@ router.get('/countries', async (req, res, next) => {
       res.status(200).send(countries)
     } else {  //Si me pasan el nombre, filtro del total y devuelvo
       const countryName = countries.filter(c=>c.name.toLowerCase().includes(name.toLowerCase()))
+      console.log(countryName)
       countryName.length ?
       res.status(200).send(countryName) :
       res.status(404).send('Country not found')
     }
   } catch (error) {
+    console.log(error)
     next(error);
   }
 })

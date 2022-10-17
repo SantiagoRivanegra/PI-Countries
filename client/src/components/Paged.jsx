@@ -18,7 +18,7 @@ export default function Paged({countriesPerPage, country, paged}){
       <ul className={s.paged}>
         {
           pageNumber && pageNumber.map(number => (
-              <button className={s.butNumber} onClick={() => paged(number)}>{number}</button>
+              <button key={number} className={s.butNumber} onClick={() => paged(number)}>{number}</button>
           ))
         }
       </ul>
