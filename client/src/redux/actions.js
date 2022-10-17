@@ -3,7 +3,7 @@ import axios from "axios"
 
 export function getCountry(){
   return async (dispatch) => {
-    const res = await axios("http://localhost:3001/countries")
+    const res = await axios("/countries")
     return dispatch({type: GET_COUNTRY, payload: res.data})
   }
 }
@@ -12,7 +12,7 @@ export function getCountryByName(name){
   return async (dispatch) => {
     try {
           // return axios(`http://localhost:3001/countries?name=${name}`)
-          const res = await axios("http://localhost:3001/countries?name=" + name)
+          const res = await axios("/countries?name=" + name)
           return dispatch({ type: 'GET_COUNTRY_BY_NAME', payload: res.data })
     } catch (error) {
       alert("El pais ingresado:  '" + name + "'  no fue encontrado")
@@ -23,7 +23,7 @@ export function getCountryByName(name){
 
 export function getCountryDetail(id){
   return async (dispatch) => {
-    const res = await axios("http://localhost:3001/countries/" + id)
+    const res = await axios("/countries/" + id)
     return dispatch({ type: GET_COUNTRY_ID, payload: res.data })
   }
 }
@@ -59,7 +59,7 @@ export function filterCountryByActivity(payload){
 
 export function getActivity(){
   return async (dispatch) => {
-    const res = await axios("http://localhost:3001/activity")
+    const res = await axios("/activity")
     return dispatch({ type: GET_ACTIVITY, payload: res.data })
     
   }
@@ -67,7 +67,7 @@ export function getActivity(){
 
 export function postActivity(payload){
   return async (dispatch) => {
-    const res = await axios.post("http://localhost:3001/activity", payload)
+    const res = await axios.post("/activity", payload)
     return res
   }
 }
